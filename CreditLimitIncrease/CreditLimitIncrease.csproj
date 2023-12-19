@@ -105,7 +105,7 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "E:\SteamLibrary\steamapps\common\Outpath\BepInEx\plugins\$(TargetName)"
-xcopy /q/y/i "$(TargetPath)" "E:\SteamLibrary\steamapps\common\Outpath\BepInEx\plugins\$(TargetName)" /E /H /C</PostBuildEvent>
+    <PostBuildEvent>mkdir "E:\Tristan\Mods\Builds\OutpathMods\$(TargetName)"
+xcopy /q/y/i "$(TargetPath)" "E:\Tristan\Mods\Builds\OutpathMods\$(TargetName)" /E /H /C</PostBuildEvent>
   </PropertyGroup>
 </Project>
