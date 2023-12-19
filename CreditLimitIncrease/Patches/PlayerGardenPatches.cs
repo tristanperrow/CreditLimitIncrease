@@ -73,18 +73,16 @@ namespace CreditLimitIncrease.Patches
 
         [HarmonyPatch(nameof(PlayerGarden.AddCredits))]
         [HarmonyPrefix]
-        public static bool AddCredits_Prefix(ref int _quantity, ref Animator ___cellsAnim, ref ParticleSystem ___creditsParticles)
+        public static bool AddCredits_Prefix(ref int _quantity)
         {
-            PlayerGarden instance = PlayerGarden.instance;
             BigCreditsManager.Instance.AddCredits(_quantity);
             return false;
         }
 
         [HarmonyPatch(nameof(PlayerGarden.RemoveCredits))]
         [HarmonyPrefix]
-        public static bool RemoveCredits_Prefix(ref int _quantity, ref Animator ___cellsAnim)
+        public static bool RemoveCredits_Prefix(ref int _quantity)
         {
-            PlayerGarden instance = PlayerGarden.instance;
             BigCreditsManager.Instance.RemoveCredits(_quantity);
             return false;
         }
