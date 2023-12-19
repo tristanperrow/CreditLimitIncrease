@@ -21,7 +21,7 @@ namespace CreditLimitIncrease
         // 1.0.0
         private const string MyGUID = "com.nanopoison.CreditLimitIncrease";
         private const string PluginName = "CreditLimitIncrease";
-        private const string VersionString = "0.3.0";
+        private const string VersionString = "0.3.5";
 
         // Config entry key strings
         // These will appear in the config file created by BepInEx and can also be used
@@ -95,7 +95,7 @@ namespace CreditLimitIncrease
         public void Save(ES3File file)
         {
             file.Save<double>(mantissaString, BigCreditsManager.Instance.credits.Mantissa);
-            file.Save<long>(mantissaString, BigCreditsManager.Instance.credits.Exponent);
+            file.Save<long>(expString, BigCreditsManager.Instance.credits.Exponent);
         }
 
         public void Load(ES3File file)
@@ -104,6 +104,7 @@ namespace CreditLimitIncrease
             {
                 double mant = file.Load<double>(mantissaString, 0);
                 long expo = file.Load<long>(expString, 0);
+
                 BigCreditsManager.Instance.credits = new BreakInfinity.BigDouble(mant, expo);
             } 
             else

@@ -20,48 +20,30 @@ namespace CreditLimitIncrease.Patches
 
     // ADD PATCHES
 
+    /*
     [HarmonyPatch(typeof(Build_Market))]
     internal class BuildMarketPatches
     {
-
-        [HarmonyPatch(nameof(Build_Market.ReturnItemsToPlayer))]
-        [HarmonyPrefix]
-        public static bool ReturnItemsToPlayer_Prefix(Build_Market __instance)
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> BuildMarket_Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (UpgradesData.instance.GetUpgrade_Bool(37))
-                BigCreditsManager.Instance.AddCredits(__instance.currCredits);
-            return false;
-        }
-
-        [HarmonyPatch(nameof(Build_Market.TakeOutItems))]
-        [HarmonyPrefix]
-        public static bool TakeOutItems_Prefix(Build_Market __instance)
-        {
-            if (__instance.currCredits == 0 || !UpgradesData.instance.GetUpgrade_Bool(37))
+            foreach (var instruction in instructions)
             {
-                AudioManager2.instance.PlaySound("Cancel");
-                return false;
+                if (instruction.opcode == OpCodes.Call && instruction.operand is MethodInfo method && method.Name == "AddCredits" && method.DeclaringType == typeof(PlayerGarden))
+                {
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(BigCreditsManager), "Instance", new Type[0]));
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Build_Market), "currCredits"));
+                    yield return new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(BigCreditsManager), "AddCredits"));
+
+                    yield return new CodeInstruction(OpCodes.Br, instruction.operand);
+                }
+                else
+                {
+                    yield return instruction;
+                }
             }
-            AudioManager2.instance.PlaySound_Local("Build_SoilMiner_TakeItems", __instance.transform.position, 1f, 5f);
-            BigCreditsManager.Instance.AddCredits(__instance.currCredits);
-            __instance.doSimpleTween.Tween();
-            __instance.currCredits = 0;
-            __instance.clickerReceiver.canClick = false;
-            return false;
         }
-
-        [HarmonyPatch(nameof(Build_Market.TakeOutItemsFromClicker))]
-        [HarmonyPrefix]
-        public static bool TakeOutItemsFromClicker_Prefix(Build_Market __instance)
-        {
-            AudioManager2.instance.PlaySound_Local("Build_SoilMiner_TakeItems", __instance.transform.position, 1f, 5f);
-            BigCreditsManager.Instance.AddCredits(__instance.currCredits);
-            __instance.doSimpleTween.Tween();
-            __instance.currCredits = 0;
-            __instance.clickerReceiver.canClick = false;
-            return false;
-        }
-
     }
 
     [HarmonyPatch(typeof(Build_Research))]
@@ -652,10 +634,12 @@ namespace CreditLimitIncrease.Patches
             return false;
         }
     }
+    */
 
     [HarmonyPatch(typeof(UI_MarketManager))]
     internal class UI_MarketManagerPatches
     {
+        /*
         [HarmonyPatch(nameof(UI_MarketManager.TryDoTrade))]
         [HarmonyPrefix]
         public static bool TryDoTrade_Prefix(UI_MarketManager __instance, int _listIndex, ItemInfo _itemInfo, int _quantity)
@@ -667,6 +651,7 @@ namespace CreditLimitIncrease.Patches
             }
             return true;
         }
+        */
 
         // remove patch
 
@@ -1124,6 +1109,7 @@ namespace CreditLimitIncrease.Patches
     }
 
     // save patches
+
 
     [HarmonyPatch(typeof(SaveDataGarden))]
     internal class SaveDataGarden_Patches
