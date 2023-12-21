@@ -44,8 +44,9 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Outpath\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="SaveFileFramework">
-      <HintPath>..\..\..\..\..\SteamLibrary\steamapps\common\Outpath\BepInEx\plugins\SaveFileFramework\SaveFileFramework.dll</HintPath>
+    <Reference Include="SaveFileFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Builds\OutpathMods\SaveFileFramework\SaveFileFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
