@@ -21,7 +21,7 @@ namespace CreditLimitIncrease
         // 1.0.0
         private const string MyGUID = "com.nanopoison.CreditLimitIncrease";
         private const string PluginName = "CreditLimitIncrease";
-        private const string VersionString = "0.3.6";
+        private const string VersionString = "0.3.7";
 
         // Config entry key strings
         // These will appear in the config file created by BepInEx and can also be used
